@@ -8,7 +8,7 @@ const port = 3300;
 const app = express();
 
 app.get('/', function (req, res) {
-  res.send('Back end para Primavera 2020')
+  res.send('Back end para Primavera 2021')
 })
 
 app.listen(port, () => console.log("http://localhost:" + port));
