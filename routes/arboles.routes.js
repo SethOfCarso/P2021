@@ -5,8 +5,9 @@ const arbolesController = require('../controllers/arboles.controllers');
 
 
 router.route('/arboles')
-    .post(arbolesController.usuarioLogin)
 
+router.route('/tiposArboles')
+    .get(arbolesController.getAllTaxonomiaArboles)
 
 
 module.exports = router;

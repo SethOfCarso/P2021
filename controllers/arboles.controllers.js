@@ -2,14 +2,29 @@
 
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
-    // host: process.env.DB_HOST,
-    // user: process.env.DB_USER,
-    // password: process.env.DB_PASSWORD,
-    // database: process.env.DB_DB,
-    // port: process.env.DB_PORT
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DB,
+    port: process.env.DB_PORT
 });
 
-class UserController {
+class arbolesController {
+
+    async getAllTaxonomiaArboles(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        stringQuery = "SELECT * FROM `rssy_arboles_taxonomias` "
+        connection.query(
+            stringQuery, 
+            function (err, results, fields) {
+                res.status(200)
+                res.json(results)
+            }
+        );
+    }
+    
 
     // async usuarioLogin(req, res) {
     //     let query = {} // Search by name or uid
@@ -178,5 +193,5 @@ class UserController {
 
 }
 
-const userControllerClass = new UserController();
-module.exports = userControllerClass;
+const arbolesControllerClass = new arbolesController();
+module.exports = arbolesControllerClass;
