@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const cors = require('cors');
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 const dot = require('dotenv').config()
 const mysql = require('mysql2');
 
@@ -36,7 +36,7 @@ app.use(express.json());
 // ====================================
 
 app.get('/P2021API', function (req, res) {
-  res.send('Back end para Primavera 2021')
+  res.send('Back end para Primavera 2021 A')
 })
 
 connection.connect(function(err) {
