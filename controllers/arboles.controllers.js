@@ -1,5 +1,14 @@
 'use strict';
 const express = require('express');
+const mysql = require('mysql2');
+const  connection = mysql.createConnection({
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : process.env.DB_PASSWORD,
+  database : process.env.DB_DB
+});
+
+connection.connect();
 
 class arbolesController {
 
@@ -7,7 +16,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_taxonomias` "
+        let stringQuery = "SELECT * FROM `rssy_arboles_taxonomias` "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
@@ -21,7 +30,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_imagenes` "
+        let stringQuery = "SELECT * FROM `rssy_arboles_imagenes` "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
@@ -35,7 +44,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_inspeccion` "
+        let stringQuery = "SELECT * FROM `rssy_arboles_inspeccion` "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
@@ -49,7 +58,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_inventario` "
+        let stringQuery = "SELECT * FROM `rssy_arboles_inventario` "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
@@ -63,7 +72,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_jardines` "
+        let stringQuery = "SELECT * FROM `rssy_arboles_jardines` "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
@@ -77,7 +86,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_nodos` "
+        let stringQuery = "SELECT * FROM `rssy_arboles_nodos` "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
@@ -91,7 +100,7 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        stringQuery = "SELECT * FROM `rssy_arboles_ruta`  "
+        let stringQuery = "SELECT * FROM `rssy_arboles_ruta`  "
         connection.query(
             stringQuery, 
             function (err, results, fields) {
