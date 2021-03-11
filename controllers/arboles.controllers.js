@@ -1,4 +1,11 @@
 'use strict';
+/* eslint-disable no-restricted-globals */
+/**
+ * Módulo del controlador de arboles.
+ * Este archivo contiene todos los endpoints del controlador de arboles.
+ * @author Erick Cardona Soto Maynez <cardona.erick@hotmail.com>
+ */
+
 const express = require('express');
 const mysql = require('mysql2');
 const  connection = mysql.createConnection({
@@ -14,6 +21,8 @@ class arbolesController {
 
     /**
      * Obtener todas las taxonimias de la base de datos de arboles para hacer una lista desplegable.
+     * @async
+     * @exports getAllTaxonomiaArboles
      * @param {*} req  - No recibe ningun parametro.
      * @param {*} res  - Es nuestra respuesta del servidor a mandar.
      */
@@ -37,6 +46,8 @@ class arbolesController {
 
     /**
      * Añadir un nuevo registro de Taxonomia de los arboles
+     * @async
+     * @exports addTaxonomia
      * @param {*} req - Debe recibir en el Body un JSON de la forma {"taxonomia" : "Nombre de la taxonomia a insertar"}.
      * @param {*} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
@@ -66,7 +77,8 @@ class arbolesController {
 
     /**
      * Editar algun registro de Taxonomia 
-     * 
+     * @async
+     * @exports editTaxonomia
      * @param {*} req - Recibe en el URL el ID a editar, con un body sea de la forma {"taxonomia" : "Nombre de la nueva taxonomia"}
      * @param {*} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
      */
@@ -100,7 +112,8 @@ class arbolesController {
 
      /**
      * Eliminar algun registro de Taxonomia 
-     * 
+          * @async
+     * @exports deleteTaxonomia
      * @param {*} req - Recibe en el URL solo el Folio necesario.
      * @param {*} res - Si recibe un ID invalido 
      */
@@ -134,6 +147,8 @@ class arbolesController {
 
 
     /**
+               * @async
+     * @exports getAllImagenesArboles
      * Es para obtener la relacion de los arboles con sus imagenes.
      * @param {*} req No recibe nada es un endpoint.
      * @param {*} res Responde con toda la base de datos.
@@ -154,6 +169,8 @@ class arbolesController {
     }
     /**
      * Obtiene los datos con los que se relacionara con el nodo de arboles
+                    * @async
+     * @exports getAllInspeccionArboles
      * del semestre que paso.
      * @param {*} req No recibe nada
      * @param {*} res Brinda id_captura, id_nodo (Relacionara con la otra BDD), id_red, fecha 
@@ -175,6 +192,8 @@ class arbolesController {
 
     /**
      * Obtiene todos los datos referentes al arbol
+                         * @async
+     * @exports getAllInventarioArboles
      * @param {*} req No recibe ningun parametro
      * @param {*} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
      */
@@ -195,6 +214,8 @@ class arbolesController {
 
     /**
      * Obtiene la informacion de los jardines.
+     * @async
+     * @exports getAllJardinesArboles
      * @param {*} req No recibe ningun parametro.
      * @param {*} res Responde con id_jardin y nombre.
      */
@@ -215,6 +236,8 @@ class arbolesController {
 
     /**
      * Obtiene todos los nodos de los arboles.
+     * @async
+     * @exports getAllNodosArboles
      * @param {*} req No recibe ningun parametro.
      * @param {*} res Responde con id_nodo y NID.
      */
@@ -234,9 +257,11 @@ class arbolesController {
     }
 
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
+     * Obtiene todas las rutas de los arboles
+     * @async
+     * @exports getAllRutaArboles
+     * @param {*} req - No recibe ningun parametro
+     * @param {*} res - Devuelve todas las rutas de los arboels en la BDD
      */
 
     async getAllRutaArboles(req, res) {
@@ -251,22 +276,6 @@ class arbolesController {
                 res.json(results)
             }
         );
-    }
-
-    
-
-    /**
-     * Se realizo un test para probar el funcionamiento basico.
-     * @param {*} req 
-     * @param {*} res 
-     */
-
-    async holaArbol(req, res) {
-        let query = {} // Search by name or uid
-        let options = {} // Page or limit
-        let projection = ""; // Which fields are wanted
-        res.status(200);
-        res.json({mensaje: "hola"})
     }
 
 }

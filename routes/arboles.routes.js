@@ -1,4 +1,10 @@
 'use strict';
+/* eslint-disable no-restricted-globals */
+/**
+ * Módulo del rutas de arboles.
+ * Este archivo contiene todas las rutas para arboles.
+ * @author Erick Cardona Soto Maynez <cardona.erick@hotmail.com>
+ */
 
 const router = require('express').Router();
 const arbolesController = require('../controllers/arboles.controllers');
