@@ -5,6 +5,11 @@ const arbolesController = require('../controllers/arboles.controllers');
 
 router.route('/tiposArboles')
     .get(arbolesController.getAllTaxonomiaArboles)
+    .post(arbolesController.addTaxonomia)
+
+router.route('/tiposArboles/:folio')
+    .put(arbolesController.editTaxonomia)
+    .delete(arbolesController.deleteTaxonomia)
 
 router.route('/imagenes')
     .get(arbolesController.getAllImagenesArboles)

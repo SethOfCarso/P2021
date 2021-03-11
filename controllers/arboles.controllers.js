@@ -13,7 +13,7 @@ connection.connect();
 class arbolesController {
 
     /**
-     * Obtener todas las taxonimias de la base de datos de arboles.
+     * Obtener todas las taxonimias de la base de datos de arboles para hacer una lista desplegable.
      * @param {*} req  - No recibe ningun parametro.
      * @param {*} res  - Es nuestra respuesta del servidor a mandar.
      */
@@ -25,11 +25,114 @@ class arbolesController {
         connection.query(
             stringQuery, 
             function (err, results, fields) {
+                if(err) {
+                    res.status(501)
+                    res.json({msg:"Hubo un error en el sistema, intente nuevamente mas tarde."})
+                }
                 res.status(200)
                 res.json(results)
             }
         );
     }
+
+    /**
+     * Añadir un nuevo registro de Taxonomia de los arboles
+     * @param {*} req - Debe recibir en el Body un JSON de la forma {"taxonomia" : "Nombre de la taxonomia a insertar"}.
+     * @param {*} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     */
+
+    async addTaxonomia(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const body = req.body ;
+        let taxononimiaName = body.taxonomia;
+        let stringQuery = "INSERT INTO `rssy_arboles_taxonomias` (`id_taxonomia`, `nombre`) VALUES (NULL, '" + taxononimiaName  +"'); "
+        connection.query(
+            stringQuery, 
+            function (err, results, fields) {
+                if(err) {
+                    res.status(501)
+                    res.json({msg:"Hubo un error en su petición, favor de verificar el nombre que agrego"})
+                }
+                if(results.affectedRows == 1){
+                    res.status(200)
+                    res.json({msg:"Se agrego correctamente el nombre a la lista de taxonomias actuales"})
+                }
+            }
+        );
+    }
+
+
+    /**
+     * Editar algun registro de Taxonomia 
+     * 
+     * @param {*} req - Recibe en el URL el ID a editar, con un body sea de la forma {"taxonomia" : "Nombre de la nueva taxonomia"}
+     * @param {*} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
+     */
+     async editTaxonomia(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        const body = req.body;
+        let taxononimiaName = body.taxonomia;
+        if(folioID !== undefined) {
+            let stringQuery = "UPDATE `rssy_arboles_taxonomias` SET `nombre` = ' " + taxononimiaName  + " ' WHERE `rssy_arboles_taxonomias`.`id_taxonomia` = " + folioID + ""
+        connection.query(
+            stringQuery, 
+            function (err, results, fields) {
+                if(err) {
+                    res.status(501)
+                    res.json({msg:"Hubo un error en su petición, favor de verificar el nombre que agrego."})
+                }
+                if(results.affectedRows == 1){
+                    res.status(200)
+                    res.json({msg:"Se agrego edito el nombre correctamente en la lista actual."})
+                }
+            }
+        );
+        } else{
+            res.status(201).json({msg: "No se envio un id valido a nuestra Base de datos."})    
+        }
+        
+    }
+
+     /**
+     * Eliminar algun registro de Taxonomia 
+     * 
+     * @param {*} req - Recibe en el URL solo el Folio necesario.
+     * @param {*} res - Si recibe un ID invalido 
+     */
+      async deleteTaxonomia(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        if(folioID !== undefined) {
+            let stringQuery = "DELETE FROM `rssy_arboles_taxonomias` WHERE `rssy_arboles_taxonomias`.`id_taxonomia` = " + folioID +""
+        connection.query(
+            stringQuery, 
+            function (err, results, fields) {
+                if(err) {
+                    res.status(501)
+                    res.json({msg:"Hubo un error en su petición, favor de intetar mas tarde"})
+                }
+                if(results.affectedRows == 1){
+                    res.status(200)
+                    res.json({msg:"Se agrego elimino correctamente el nombre de la lista actual"})
+                }
+            }
+        );
+        } else{
+            res.status(201).json({msg: "No se envio un id valido a nuestra Base de datos."})    
+        }
+        
+    }
+
+    
+
+
     /**
      * Es para obtener la relacion de los arboles con sus imagenes.
      * @param {*} req No recibe nada es un endpoint.
@@ -149,6 +252,8 @@ class arbolesController {
             }
         );
     }
+
+    
 
     /**
      * Se realizo un test para probar el funcionamiento basico.
