@@ -8,11 +8,11 @@
 
 const express = require('express');
 const mysql = require('mysql2');
-const  connection = mysql.createConnection({
-  host     : process.env.DB_HOST,
-  user     : process.env.DB_USER,
-  password : process.env.DB_PASSWORD,
-  database : process.env.DB_DB
+const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DB
 });
 
 connection.connect();
@@ -32,11 +32,13 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_taxonomias` "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
-                if(err) {
+                if (err) {
                     res.status(501)
-                    res.json({msg:"Hubo un error en el sistema, intente nuevamente mas tarde."})
+                    res.json({
+                        msg: "Hubo un error en el sistema, intente nuevamente mas tarde."
+                    })
                 }
                 res.status(200)
                 res.json(results)
@@ -56,19 +58,23 @@ class arbolesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        const body = req.body ;
+        const body = req.body;
         let taxononimiaName = body.taxonomia;
-        let stringQuery = "INSERT INTO `rssy_arboles_taxonomias` (`id_taxonomia`, `nombre`) VALUES (NULL, '" + taxononimiaName  +"'); "
+        let stringQuery = "INSERT INTO `rssy_arboles_taxonomias` (`id_taxonomia`, `nombre`) VALUES (NULL, '" + taxononimiaName + "'); "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
-                if(err) {
+                if (err) {
                     res.status(501)
-                    res.json({msg:"Hubo un error en su petición, favor de verificar el nombre que agrego"})
+                    res.json({
+                        msg: "Hubo un error en su petición, favor de verificar el nombre que agrego"
+                    })
                 }
-                if(results.affectedRows == 1){
+                if (results.affectedRows == 1) {
                     res.status(200)
-                    res.json({msg:"Se agrego correctamente el nombre a la lista de taxonomias actuales"})
+                    res.json({
+                        msg: "Se agrego correctamente el nombre a la lista de taxonomias actuales"
+                    })
                 }
             }
         );
@@ -82,72 +88,84 @@ class arbolesController {
      * @param {*} req - Recibe en el URL el ID a editar, con un body sea de la forma {"taxonomia" : "Nombre de la nueva taxonomia"}
      * @param {*} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
      */
-     async editTaxonomia(req, res) {
+    async editTaxonomia(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
         const folioID = req.params.folio;
         const body = req.body;
         let taxononimiaName = body.taxonomia;
-        if(folioID !== undefined) {
-            let stringQuery = "UPDATE `rssy_arboles_taxonomias` SET `nombre` = ' " + taxononimiaName  + " ' WHERE `rssy_arboles_taxonomias`.`id_taxonomia` = " + folioID + ""
-        connection.query(
-            stringQuery, 
-            function (err, results, fields) {
-                if(err) {
-                    res.status(501)
-                    res.json({msg:"Hubo un error en su petición, favor de verificar el nombre que agrego."})
+        if (folioID !== undefined) {
+            let stringQuery = "UPDATE `rssy_arboles_taxonomias` SET `nombre` = ' " + taxononimiaName + " ' WHERE `rssy_arboles_taxonomias`.`id_taxonomia` = " + folioID + ""
+            connection.query(
+                stringQuery,
+                function (err, results, fields) {
+                    if (err) {
+                        res.status(501)
+                        res.json({
+                            msg: "Hubo un error en su petición, favor de verificar el nombre que agrego."
+                        })
+                    }
+                    if (results.affectedRows == 1) {
+                        res.status(200)
+                        res.json({
+                            msg: "Se agrego edito el nombre correctamente en la lista actual."
+                        })
+                    }
                 }
-                if(results.affectedRows == 1){
-                    res.status(200)
-                    res.json({msg:"Se agrego edito el nombre correctamente en la lista actual."})
-                }
-            }
-        );
-        } else{
-            res.status(201).json({msg: "No se envio un id valido a nuestra Base de datos."})    
+            );
+        } else {
+            res.status(201).json({
+                msg: "No se envio un id valido a nuestra Base de datos."
+            })
         }
-        
+
     }
 
-     /**
+    /**
      * Eliminar algun registro de Taxonomia 
-          * @async
+     * @async
      * @exports deleteTaxonomia
      * @param {*} req - Recibe en el URL solo el Folio necesario.
      * @param {*} res - Si recibe un ID invalido 
      */
-      async deleteTaxonomia(req, res) {
+    async deleteTaxonomia(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
         const folioID = req.params.folio;
-        if(folioID !== undefined) {
-            let stringQuery = "DELETE FROM `rssy_arboles_taxonomias` WHERE `rssy_arboles_taxonomias`.`id_taxonomia` = " + folioID +""
-        connection.query(
-            stringQuery, 
-            function (err, results, fields) {
-                if(err) {
-                    res.status(501)
-                    res.json({msg:"Hubo un error en su petición, favor de intetar mas tarde"})
+        if (folioID !== undefined) {
+            let stringQuery = "DELETE FROM `rssy_arboles_taxonomias` WHERE `rssy_arboles_taxonomias`.`id_taxonomia` = " + folioID + ""
+            connection.query(
+                stringQuery,
+                function (err, results, fields) {
+                    if (err) {
+                        res.status(501)
+                        res.json({
+                            msg: "Hubo un error en su petición, favor de intetar mas tarde"
+                        })
+                    }
+                    if (results.affectedRows == 1) {
+                        res.status(200)
+                        res.json({
+                            msg: "Se agrego elimino correctamente el nombre de la lista actual"
+                        })
+                    }
                 }
-                if(results.affectedRows == 1){
-                    res.status(200)
-                    res.json({msg:"Se agrego elimino correctamente el nombre de la lista actual"})
-                }
-            }
-        );
-        } else{
-            res.status(201).json({msg: "No se envio un id valido a nuestra Base de datos."})    
+            );
+        } else {
+            res.status(201).json({
+                msg: "No se envio un id valido a nuestra Base de datos."
+            })
         }
-        
+
     }
 
-    
+
 
 
     /**
-               * @async
+     * @async
      * @exports getAllImagenesArboles
      * Es para obtener la relacion de los arboles con sus imagenes.
      * @param {*} req No recibe nada es un endpoint.
@@ -160,7 +178,7 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_imagenes` "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
@@ -169,7 +187,7 @@ class arbolesController {
     }
     /**
      * Obtiene los datos con los que se relacionara con el nodo de arboles
-                    * @async
+     * @async
      * @exports getAllInspeccionArboles
      * del semestre que paso.
      * @param {*} req No recibe nada
@@ -182,7 +200,7 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_inspeccion` "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
@@ -192,7 +210,7 @@ class arbolesController {
 
     /**
      * Obtiene todos los datos referentes al arbol
-                         * @async
+     * @async
      * @exports getAllInventarioArboles
      * @param {*} req No recibe ningun parametro
      * @param {*} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
@@ -204,7 +222,7 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_inventario` "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
@@ -226,7 +244,7 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_jardines` "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
@@ -248,7 +266,7 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_nodos` "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
@@ -270,7 +288,7 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_ruta`  "
         connection.query(
-            stringQuery, 
+            stringQuery,
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
