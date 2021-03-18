@@ -3,8 +3,8 @@
  */
 const express = require('express');
 const cors = require('cors');
-const port = process.env.PORT || 80;
-//const dot = require('dotenv').config()
+const port = process.env.PORT || 3000;
+const dot = require('dotenv').config()
 const mysql = require('mysql2');
 const  connection = mysql.createConnection({
   host     : process.env.DB_HOST,
