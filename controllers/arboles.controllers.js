@@ -24,7 +24,7 @@ class arbolesController {
      * @async
      * @exports getAllTaxonomiaArboles
      * @param {*} req  - No recibe ningun parametro.
-     * @param {*} res  - Es nuestra respuesta del servidor a mandar.
+     * @param {JSON} res  - Es nuestra respuesta del servidor a mandar.
      */
     async getAllTaxonomiaArboles(req, res) {
         let query = {} // Search by name or uid
@@ -50,8 +50,8 @@ class arbolesController {
      * Añadir un nuevo registro de Taxonomia de los arboles
      * @async
      * @exports addTaxonomia
-     * @param {*} req - Debe recibir en el Body un JSON de la forma {"taxonomia" : "Nombre de la taxonomia a insertar"}.
-     * @param {*} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     * @param {JSON} req - Debe recibir en el Body un JSON de la forma {"taxonomia" : "Nombre de la taxonomia a insertar"}.
+     * @param {string} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
     async addTaxonomia(req, res) {
@@ -86,8 +86,8 @@ class arbolesController {
      * Obtener un registro de la Taxonomia de arboles.
      * @async
      * @exports getSingleTaxonomia
-     * @param {*} req - Debe recibir en el Body un JSON de la forma {"taxonomia" : "Nombre de la taxonomia a insertar"}.
-     * @param {*} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     * @param {*} req - No recibe nada en los parametros.
+     * @param {JSON} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
     async getSingleTaxonomia(req, res) {
@@ -118,8 +118,8 @@ class arbolesController {
      * Editar algun registro de Taxonomia 
      * @async
      * @exports editTaxonomia
-     * @param {*} req - Recibe en el URL el ID a editar, con un body sea de la forma {"taxonomia" : "Nombre de la nueva taxonomia"}
-     * @param {*} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
+     * @param {JSON} req - Recibe en el URL el ID a editar, con un body sea de la forma {"taxonomia" : "Nombre de la nueva taxonomia"}
+     * @param {string} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
      */
     async editTaxonomia(req, res) {
         let query = {} // Search by name or uid
@@ -160,7 +160,7 @@ class arbolesController {
      * @async
      * @exports deleteTaxonomia
      * @param {*} req - Recibe en el URL solo el Folio necesario.
-     * @param {*} res - Si recibe un ID invalido 
+     * @param {string} res - Si recibe un ID invalido 
      */
     async deleteTaxonomia(req, res) {
         let query = {} // Search by name or uid
@@ -198,11 +198,11 @@ class arbolesController {
 
 
     /**
+     * Es para obtener la relacion de los arboles con sus imagenes.
      * @async
      * @exports getAllImagenesArboles
-     * Es para obtener la relacion de los arboles con sus imagenes.
      * @param {*} req No recibe nada es un endpoint.
-     * @param {*} res Responde con toda la base de datos.
+     * @param {JSON} res Responde con toda la base de datos.
      */
 
     async getAllImagenesArboles(req, res) {
@@ -220,11 +220,12 @@ class arbolesController {
     }
 
     /**
+     * 
+     * Es para añadir una imagen a la Base de datos
      * @async
      * @exports addImagenArbol
-     * Es para añadir una imagen a la Base de datos
-     * @param {*} req Recibe un nombre de imagen e NID en un JSON que hace relacion con el inventario de arboles.{"nombreImagen:"Nombre de la imagen, "NID": #### }
-     * @param {*} res  Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     * @param {JSON} req Recibe un nombre de imagen e NID en un JSON que hace relacion con el inventario de arboles.{"nombreImagen:"Nombre de la imagen, "NID": #### }
+     * @param {string} res  Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
     async addImagenArbol(req, res) {
@@ -255,11 +256,11 @@ class arbolesController {
     }
 
     /**
+     * Obtiene un arbol en especifico de la base de datos a través de su folio.
      * @async
      * @exports getSingleImagen
-     * Obtiene un arbol en especifico de la base de datos a través de su folio.
      * @param {*} req - No recibe nada en el request ya que busca desde el URL.
-     * @param {*} res - Responde con el ID, nombre de la imagen y su NID(Hace referencia al inventario de arboles).
+     * @param {JSON} res - Responde con el ID, nombre de la imagen y su NID(Hace referencia al inventario de arboles).
      */
 
     async getSingleImagen(req, res) {
@@ -289,8 +290,8 @@ class arbolesController {
      * Editar algun registro de Taxonomia 
      * @async
      * @exports editImagenArbol
-     * @param {*} req - Recibe en el URL el ID a editar, con un body con lo que se desea editar en un JSON, los campos son imagen o NID.
-     * @param {*} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos y si todo sale correcto manda un mensaje de correcto.
+     * @param {JSON} req - Recibe en el URL el ID a editar, con un body con lo que se desea editar en un JSON, los campos son imagen o NID.
+     * @param {string} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos y si todo sale correcto manda un mensaje de correcto.
      */
     async editImagenArbol(req, res) {
         let query = {} // Search by name or uid
@@ -352,7 +353,7 @@ class arbolesController {
      * @async
      * @exports deleteImagenArbol
      * @param {*} req - Recibe en el URL solo el Folio necesario a eliminar.
-     * @param {*} res - Si recibe un ID invalido manda error, si se encuentra correcto se elimna y manda un mensaje de que se elimino correctamente.
+     * @param {string} res - Si recibe un ID invalido manda error, si se encuentra correcto se elimna y manda un mensaje de que se elimino correctamente.
      */
     async deleteImagenArbol(req, res) {
         let query = {} // Search by name or uid
@@ -393,7 +394,7 @@ class arbolesController {
      * @exports getAllInspeccionArboles
      * del semestre que paso.
      * @param {*} req No recibe nada
-     * @param {*} res Brinda id_captura, id_nodo (Relacionara con la otra BDD), id_red, fecha 
+     * @param {JSON} res Brinda id_captura, id_nodo (Relacionara con la otra BDD), id_red, fecha 
      */
 
     async getAllInspeccionArboles(req, res) {
@@ -415,7 +416,7 @@ class arbolesController {
      * @async
      * @exports getAllInventarioArboles
      * @param {*} req No recibe ningun parametro
-     * @param {*} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
+     * @param {string} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
      */
 
     async getAllInventarioArboles(req, res) {
@@ -437,7 +438,7 @@ class arbolesController {
      * Crea un nuego registro para la parte de inventario de los arboles.
      * @async
      * @exports createInventario
-     * @param {*} req - Debe recibir en el Body un JSON de la forma 
+     * @param {JSON} req - Debe recibir en el Body un JSON de la forma 
      * {"id_taxonomia" : ####, (int 11) , (Hace relacion con la BDD de id taxonomia)
      * "Plantado" : "Año de plantado", (int 11)
      * "Diametro": "Diametro del arbol", (float)
@@ -448,7 +449,7 @@ class arbolesController {
      * "id_jardin" : #### , (int 11)
      * "imagen" : "Ruta de la imagen" , (varchar 200)
      * }.
-     * @param {*} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     * @param {string} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
     async createInventario(req, res) {
@@ -508,7 +509,7 @@ class arbolesController {
      * @async
      * @exports getSingleInventarioArbol
      * @param {*} req No recibe ningun parametro
-     * @param {*} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
+     * @param {JSON} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
      */
 
     async getSingleInventarioArbol(req, res) {
@@ -539,8 +540,8 @@ class arbolesController {
      * Actualiza todos los datos que se manda en un body al arbol.
      * @async
      * @exports updateInventarioArbol
-     * @param {*} req Todo lo que recibe en un JSOn de NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen, es lo que actualiza.
-     * @param {*} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
+     * @param {JSON} req Todo lo que recibe en un JSOn de NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen, es lo que actualiza.
+     * @param {string} res Responde un mensaje de error o valdio dependiendo el caso.
      */
 
     async updateInventarioArbol(req, res) {
@@ -602,7 +603,7 @@ class arbolesController {
      * @async
      * @exports deleteInventarioArbol
      * @param {*} req Recibe un folio al cual borrar.
-     * @param {*} res Responde con un mensaje que no se puede eliminar un arbol.
+     * @param {string} res Responde con un mensaje que no se puede eliminar un arbol.
      */
 
     async deleteInventarioArbol(req, res) {
@@ -626,7 +627,7 @@ class arbolesController {
      * @async
      * @exports getAllJardinesArboles
      * @param {*} req No recibe ningun parametro.
-     * @param {*} res Responde con id_jardin y nombre.
+     * @param {JSON} res Responde con id_jardin y nombre.
      */
 
     async getAllJardinesArboles(req, res) {
@@ -647,12 +648,12 @@ class arbolesController {
      * Se utilzia esta funcion como su nombre lo menciona que es para crear un nuevo Jardin.
      * @async
      * @exports createJardin
-     * @param {*} req Recibe en un body todos los datos de jardin necesarios para crearlo 
+     * @param {JSON} req Recibe en un body todos los datos de jardin necesarios para crearlo 
      * {
      * "id_jardin" : ### (int 11), no es necesario mandarlo ya que se obtiene automaticamente
      * "nombre" : varchar(200)
      * }
-     * @param {*} res Responde con un mensaje si salio correcto o cual es el error.
+     * @param {String} res Responde con un mensaje si salio correcto o cual es el error.
      */
 
          async createJardin(req, res) {
@@ -694,7 +695,7 @@ class arbolesController {
      * @async
      * @exports getSingleJardin
      * @param {*} req No recibe ningun parametro
-     * @param {*} res Responde con id_jardin y nombre si lo encuentra.
+     * @param {JSON} res Responde con id_jardin y nombre si lo encuentra.
      */
 
     async getSingleJardin(req, res) {
@@ -724,8 +725,8 @@ class arbolesController {
      * Actualiza todos los datos que se manda en un body a jardin.
      * @async
      * @exports updateJardin
-     * @param {*} req Recibe en un body tipo JSON los datos a actualizar
-     * @param {*} res Responde con mensaje si fue satisfactorio o hubo un error.
+     * @param {JSON} req Recibe en un body tipo JSON los datos a actualizar
+     * @param {string} res Responde con mensaje si fue satisfactorio o hubo un error.
      */
 
          async updateJardin(req, res) {
@@ -747,7 +748,7 @@ class arbolesController {
      * @async
      * @exports deleteJardin
      * @param {*} req No recibe ningun parametro.
-     * @param {*} res Responde con un mensaje de que no se implementara.
+     * @param {string} res Responde con un mensaje de que no se implementara.
      */
 
     async deleteJardin(req, res) {
@@ -770,7 +771,7 @@ class arbolesController {
      * @async
      * @exports getAllNodosArboles
      * @param {*} req No recibe ningun parametro.
-     * @param {*} res Responde con id_nodo y NID.
+     * @param {JSON} res Responde con id_nodo y NID.
      */
 
     async getAllNodosArboles(req, res) {
@@ -792,7 +793,7 @@ class arbolesController {
      * @async
      * @exports getAllRutaArboles
      * @param {*} req - No recibe ningun parametro
-     * @param {*} res - Devuelve todas las rutas de los arboels en la BDD
+     * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
      */
 
     async getAllRutaArboles(req, res) {
