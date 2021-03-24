@@ -484,12 +484,12 @@ class arbolesController {
                                 res.json({
                                     msg: "Hubo un error en su petición, favor de verificar los datos agregados "
                                 })
-                                
+
                             }
                             if (results.affectedRows == 1) {
                                 res.status(200)
                                 res.json({
-                                    msg: "Se agrego satisfactoriametne el arbol agregado" 
+                                    msg: "Se agrego satisfactoriametne el arbol agregado"
                                 })
                             }
                         }
@@ -518,21 +518,21 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         const folioID = req.params.folio;
         let stringQuery = "SELECT * FROM `rssy_arboles_inventario` WHERE `NID` = " + folioID
-            connection.query(
-                stringQuery,
-                function (err, results, fields) {
-                    if (err) {
-                        res.status(501)
-                        res.json({
-                            msg: "Hubo un error en su petición, favor de checar el folio del inventario"
-                        })
-                    }
-                    if (results != undefined) {
-                        res.status(200)
-                        res.json(results)
-                    }
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(501)
+                    res.json({
+                        msg: "Hubo un error en su petición, favor de checar el folio del inventario"
+                    })
                 }
-            );
+                if (results != undefined) {
+                    res.status(200)
+                    res.json(results)
+                }
+            }
+        );
     }
 
 
@@ -644,7 +644,7 @@ class arbolesController {
         );
     }
 
-        /**
+    /**
      * Se utilzia esta funcion como su nombre lo menciona que es para crear un nuevo Jardin.
      * @async
      * @exports jardinCreate
@@ -656,41 +656,41 @@ class arbolesController {
      * @param {String} res Responde con un mensaje si salio correcto o cual es el error.
      */
 
-         async jardinCreate(req, res) {
-            let query = {} // Search by name or uid
-            let options = {} // Page or limit
-            let projection = ""; // Which fields are wanted
-            const body = req.body;
-            let idJardin = 1;
-            const nombreJardin = body.nombre;
-            connection.query(
+    async jardinCreate(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const body = req.body;
+        let idJardin = 1;
+        const nombreJardin = body.nombre;
+        connection.query(
             "SELECT id_jardin FROM `rssy_arboles_jardines` ORDER BY `id_jardin` DESC LIMIT 1 ",
             function (err, results, field) {
                 idJardin = results[0].id_jardin + 1
-            let stringQuery = "INSERT INTO `rssy_arboles_jardines` (`id_jardin`, `nombre`) VALUES ('"+idJardin+"', '"+nombreJardin+"');"
-            connection.query(
-                stringQuery,
-                function (err, results, fields) {
-                    if (err) {
-                        res.status(501)
-                        res.json({
-                            msg: "Hubo un error en su petición, favor de verificar los datos agregados" 
-                        })
-                        
-                    }
-                    if (results.affectedRows == 1) {
-                        res.status(200)
-                        res.json({
-                            msg: "Se agrego satisfactoriametne el jardin agregado" 
-                        })
-                    }
-                }
-            );
-            }
-            );
-        }
+                let stringQuery = "INSERT INTO `rssy_arboles_jardines` (`id_jardin`, `nombre`) VALUES ('" + idJardin + "', '" + nombreJardin + "');"
+                connection.query(
+                    stringQuery,
+                    function (err, results, fields) {
+                        if (err) {
+                            res.status(501)
+                            res.json({
+                                msg: "Hubo un error en su petición, favor de verificar los datos agregados"
+                            })
 
-            /**
+                        }
+                        if (results.affectedRows == 1) {
+                            res.status(200)
+                            res.json({
+                                msg: "Se agrego satisfactoriametne el jardin agregado"
+                            })
+                        }
+                    }
+                );
+            }
+        );
+    }
+
+    /**
      * Obtiene la informacion de los un jardin que se obtiene a traves del folio que se manda en el URL.
      * @async
      * @exports jardinGetSingle
@@ -704,21 +704,21 @@ class arbolesController {
         let projection = ""; // Which fields are wanted
         const folioID = req.params.folio;
         let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
-            connection.query(
-                stringQuery,
-                function (err, results, fields) {
-                    if (err) {
-                        res.status(501)
-                        res.json({
-                            msg: "Hubo un error en su petición, favor de checar el folio del jardin"
-                        })
-                    }
-                    if (results != undefined) {
-                        res.status(200)
-                        res.json(results)
-                    }
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(501)
+                    res.json({
+                        msg: "Hubo un error en su petición, favor de checar el folio del jardin"
+                    })
                 }
-            );
+                if (results != undefined) {
+                    res.status(200)
+                    res.json(results)
+                }
+            }
+        );
     }
 
     /**
@@ -729,21 +729,23 @@ class arbolesController {
      * @param {string} res Responde con mensaje si fue satisfactorio o hubo un error.
      */
 
-         async jardinEdit(req, res) {
-            let query = {} // Search by name or uid
-            let options = {} // Page or limit
-            let projection = ""; // Which fields are wanted
-            let stringQuery = "SELECT * FROM `rssy_arboles_jardines` "
-            connection.query(
-                stringQuery,
-                function (err, results, fields) {
-                    res.status(200)
-                    res.json({msg:"Es le update de Jardin falta implementar"})
-                }
-            );
-        }
+    async jardinEdit(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        let stringQuery = "SELECT * FROM `rssy_arboles_jardines` "
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                res.status(200)
+                res.json({
+                    msg: "Es le update de Jardin falta implementar"
+                })
+            }
+        );
+    }
 
-            /**
+    /**
      * Funcion con el fin de eliminar jardines, no se implementara a peticion del profesor.
      * @async
      * @exports jardinDelete
@@ -760,7 +762,9 @@ class arbolesController {
             stringQuery,
             function (err, results, fields) {
                 res.status(200)
-                res.json({msg:"Este es delete de Jardin, no se implementa por peticion del profesor."})
+                res.json({
+                    msg: "Este es delete de Jardin, no se implementa por peticion del profesor."
+                })
             }
         );
     }
@@ -801,6 +805,113 @@ class arbolesController {
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
         let stringQuery = "SELECT * FROM `rssy_arboles_ruta`  "
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                res.status(200)
+                res.json(results)
+            }
+        );
+    }
+
+
+    /**
+     * Obtiene el ID del ultimo arbol creado (Inventario).
+     * @async
+     * @exports InventarioLastCreated
+     * @param {*} req - No recibe ningun parametro
+     * @param {JSON} res - Devuelve el NID del ultimo arbol creado.
+     */
+
+    async InventarioLastCreated(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        let stringQuery = "SELECT `NID` FROM `rssy_arboles_inventario` ORDER BY `rssy_arboles_inventario`.`NID` DESC limit 1 "
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(500)
+                    res.json({
+                        msg: "Hubo un error en la base de datos, intente mas tarde."
+                    })
+                }
+                res.status(200)
+                res.json(results)
+            }
+        );
+    }
+
+    /**
+     * Obtiene el arbol (inventario) buscado y a su vez da otras 3 opciones que le pueden gustar.
+     * @async
+     * @exports inventario3Random
+     * @param {*} req No recibe nada
+     * @param {JSON} res Responde con el arbol buscado y a su vez con otros 3 arboles aleatorios.
+     */
+
+    async inventario3Random(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        let stringQuery = "SELECT * FROM `rssy_arboles_inventario` ORDER BY RAND() LIMIT 3"
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(501)
+                    res.json({
+                        msg: "Hubo un error en su petición, favor de checar el folio del inventario"
+                    })
+                }
+                if (results != undefined) {
+                    res.status(200)
+                    res.json(results)
+                }
+            }
+        );
+    }
+
+     /**
+     * Obtiene los arboles del inventario segun el jardin que es solicitado.
+     * @async
+     * @exports inventarioJardin
+     * @param {*} req - En el folio/URL viene el id del jardin solicitado
+     * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
+     */
+      async inventarioJardin(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        // let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
+        let stringQuery = "SELECT * FROM `rssy_arboles_inventario` where `id_jardin` = " + folioID
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                res.status(200)
+                res.json(results)
+            }
+        );
+    }
+
+     /**
+     * Obtiene todas las rutas de los arboles
+     * @async
+     * @exports inventarioTaxonomia
+     * @param {*} req - No recibe ningun parametro
+     * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
+     */
+
+      async inventarioTaxonomia(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        // let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
+        let stringQuery = "SELECT * FROM `rssy_arboles_inventario` where `id_taxonomia` = " + folioID
         connection.query(
             stringQuery,
             function (err, results, fields) {

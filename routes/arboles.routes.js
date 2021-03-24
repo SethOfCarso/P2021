@@ -54,6 +54,17 @@ router.route('/getAllNodosArboles')
 router.route('/rutas')
     .get(arbolesController.rutaArbolesGetAll)
 
+router.route('/lastCreated')
+    .get(arbolesController.InventarioLastCreated)
+
+router.route('/InventarioSearch')
+    .get(arbolesController.inventario3Random)
+
+router.route('/InventarioFilter/jardin/:folio')
+    .get(arbolesController.inventarioJardin)
+
+router.route('/InventarioFilter/taxonomia/:folio')
+    .get(arbolesController.inventarioTaxonomia)
 
 
 
