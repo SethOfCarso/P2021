@@ -10,49 +10,49 @@ const router = require('express').Router();
 const arbolesController = require('../controllers/arboles.controllers');
 
 router.route('/tiposArboles')
-    .get(arbolesController.getAllTaxonomiaArboles)
-    .post(arbolesController.addTaxonomia)
+    .get(arbolesController.taxonomiaArbolesGetAll)
+    .post(arbolesController.taxonomiaCreate)
 
 router.route('/tiposArboles/:folio')
-    .get(arbolesController.getSingleTaxonomia)
-    .put(arbolesController.editTaxonomia)
-    .delete(arbolesController.deleteTaxonomia)
+    .get(arbolesController.taxonomiaGetSingle)
+    .put(arbolesController.taxonomiaEdit)
+    .delete(arbolesController.taxonomiaDelete)
 
 router.route('/imagenes')
-    .get(arbolesController.getAllImagenesArboles)
-    .post(arbolesController.addImagenArbol)
+    .get(arbolesController.imagenesArbolesGetAll)
+    .post(arbolesController.imagenArbolCreate)
 
 router.route('/imagenes/:folio')
-    .get(arbolesController.getSingleImagen)
-    .put(arbolesController.editImagenArbol)
-    .delete(arbolesController.deleteImagenArbol)
+    .get(arbolesController.imagenArbolGetSingle)
+    .put(arbolesController.imagenArbolEdit)
+    .delete(arbolesController.imagenArbolDelete)
 
 router.route('/inspeccion')
-    .get(arbolesController.getAllInspeccionArboles)
+    .get(arbolesController.inspeccionArbolesGetAll)
 
 router.route('/inventario')
-    .get(arbolesController.getAllInventarioArboles)
-    .post(arbolesController.createInventario)
+    .get(arbolesController.inventarioArbolesGetAll)
+    .post(arbolesController.inventarioCreate)
 
 router.route('/inventario/:folio')
-    .get(arbolesController.getSingleInventarioArbol)
-    .put(arbolesController.updateInventarioArbol)
-    .delete(arbolesController.deleteInventarioArbol)
+    .get(arbolesController.inventarioArbolGetSingle)
+    .put(arbolesController.inventarioArbolEdit)
+    .delete(arbolesController.inventarioArbolDelete)
 
 router.route('/jardines')
-    .get(arbolesController.getAllJardinesArboles)
-    .post(arbolesController.createJardin)
+    .get(arbolesController.jardinesArbolesGetAll)
+    .post(arbolesController.jardinCreate)
 
 router.route('/jardines/:folio')
-    .get(arbolesController.getSingleJardin)
-    .put(arbolesController.updateJardin)
-    .delete(arbolesController.deleteJardin)
+    .get(arbolesController.jardinGetSingle)
+    .put(arbolesController.jardinEdit)
+    .delete(arbolesController.jardinDelete)
 
 router.route('/getAllNodosArboles')
-    .get(arbolesController.getAllNodosArboles)
+    .get(arbolesController.nodosArbolesGetAll)
 
 router.route('/rutas')
-    .get(arbolesController.getAllRutaArboles)
+    .get(arbolesController.rutaArbolesGetAll)
 
 
 

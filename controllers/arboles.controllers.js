@@ -22,11 +22,11 @@ class arbolesController {
     /**
      * Obtener todas las taxonimias de la base de datos de arboles para hacer una lista desplegable.
      * @async
-     * @exports getAllTaxonomiaArboles
+     * @exports taxonomiaArbolesGetAll
      * @param {*} req  - No recibe ningun parametro.
      * @param {JSON} res  - Es nuestra respuesta del servidor a mandar.
      */
-    async getAllTaxonomiaArboles(req, res) {
+    async taxonomiaArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -49,12 +49,12 @@ class arbolesController {
     /**
      * Añadir un nuevo registro de Taxonomia de los arboles
      * @async
-     * @exports addTaxonomia
+     * @exports taxonomiaCreate
      * @param {JSON} req - Debe recibir en el Body un JSON de la forma {"taxonomia" : "Nombre de la taxonomia a insertar"}.
      * @param {string} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
-    async addTaxonomia(req, res) {
+    async taxonomiaCreate(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -85,12 +85,12 @@ class arbolesController {
     /**
      * Obtener un registro de la Taxonomia de arboles.
      * @async
-     * @exports getSingleTaxonomia
+     * @exports taxonomiaGetSingle
      * @param {*} req - No recibe nada en los parametros.
      * @param {JSON} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
-    async getSingleTaxonomia(req, res) {
+    async taxonomiaGetSingle(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -117,11 +117,11 @@ class arbolesController {
     /**
      * Editar algun registro de Taxonomia 
      * @async
-     * @exports editTaxonomia
+     * @exports taxonomiaEdit
      * @param {JSON} req - Recibe en el URL el ID a editar, con un body sea de la forma {"taxonomia" : "Nombre de la nueva taxonomia"}
      * @param {string} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
      */
-    async editTaxonomia(req, res) {
+    async taxonomiaEdit(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -158,11 +158,11 @@ class arbolesController {
     /**
      * Eliminar algun registro de Taxonomia 
      * @async
-     * @exports deleteTaxonomia
+     * @exports taxonomiaDelete
      * @param {*} req - Recibe en el URL solo el Folio necesario.
      * @param {string} res - Si recibe un ID invalido 
      */
-    async deleteTaxonomia(req, res) {
+    async taxonomiaDelete(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -200,12 +200,12 @@ class arbolesController {
     /**
      * Es para obtener la relacion de los arboles con sus imagenes.
      * @async
-     * @exports getAllImagenesArboles
+     * @exports imagenesArbolesGetAll
      * @param {*} req No recibe nada es un endpoint.
      * @param {JSON} res Responde con toda la base de datos.
      */
 
-    async getAllImagenesArboles(req, res) {
+    async imagenesArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -223,12 +223,12 @@ class arbolesController {
      * 
      * Es para añadir una imagen a la Base de datos
      * @async
-     * @exports addImagenArbol
+     * @exports imagenArbolCreate
      * @param {JSON} req Recibe un nombre de imagen e NID en un JSON que hace relacion con el inventario de arboles.{"nombreImagen:"Nombre de la imagen, "NID": #### }
      * @param {string} res  Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
-    async addImagenArbol(req, res) {
+    async imagenArbolCreate(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -258,12 +258,12 @@ class arbolesController {
     /**
      * Obtiene un arbol en especifico de la base de datos a través de su folio.
      * @async
-     * @exports getSingleImagen
+     * @exports imagenArbolGetSingle
      * @param {*} req - No recibe nada en el request ya que busca desde el URL.
      * @param {JSON} res - Responde con el ID, nombre de la imagen y su NID(Hace referencia al inventario de arboles).
      */
 
-    async getSingleImagen(req, res) {
+    async imagenArbolGetSingle(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -289,11 +289,11 @@ class arbolesController {
     /**
      * Editar algun registro de Taxonomia 
      * @async
-     * @exports editImagenArbol
+     * @exports imagenArbolEdit
      * @param {JSON} req - Recibe en el URL el ID a editar, con un body con lo que se desea editar en un JSON, los campos son imagen o NID.
      * @param {string} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos y si todo sale correcto manda un mensaje de correcto.
      */
-    async editImagenArbol(req, res) {
+    async imagenArbolEdit(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -351,11 +351,11 @@ class arbolesController {
     /**
      * Eliminar algun registro de Taxonomia 
      * @async
-     * @exports deleteImagenArbol
+     * @exports imagenArbolDelete
      * @param {*} req - Recibe en el URL solo el Folio necesario a eliminar.
      * @param {string} res - Si recibe un ID invalido manda error, si se encuentra correcto se elimna y manda un mensaje de que se elimino correctamente.
      */
-    async deleteImagenArbol(req, res) {
+    async imagenArbolDelete(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -391,13 +391,13 @@ class arbolesController {
     /**
      * Obtiene los datos con los que se relacionara con el nodo de arboles
      * @async
-     * @exports getAllInspeccionArboles
+     * @exports inspeccionArbolesGetAll
      * del semestre que paso.
      * @param {*} req No recibe nada
      * @param {JSON} res Brinda id_captura, id_nodo (Relacionara con la otra BDD), id_red, fecha 
      */
 
-    async getAllInspeccionArboles(req, res) {
+    async inspeccionArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -414,12 +414,12 @@ class arbolesController {
     /**
      * Obtiene todos los datos referentes al arbol
      * @async
-     * @exports getAllInventarioArboles
+     * @exports inventarioArbolesGetAll
      * @param {*} req No recibe ningun parametro
      * @param {string} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
      */
 
-    async getAllInventarioArboles(req, res) {
+    async inventarioArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -437,7 +437,7 @@ class arbolesController {
     /**
      * Crea un nuego registro para la parte de inventario de los arboles.
      * @async
-     * @exports createInventario
+     * @exports inventarioCreate
      * @param {JSON} req - Debe recibir en el Body un JSON de la forma 
      * {"id_taxonomia" : ####, (int 11) , (Hace relacion con la BDD de id taxonomia)
      * "Plantado" : "Año de plantado", (int 11)
@@ -452,7 +452,7 @@ class arbolesController {
      * @param {string} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
      */
 
-    async createInventario(req, res) {
+    async inventarioCreate(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -507,12 +507,12 @@ class arbolesController {
     /**
      * Obtiene todos los datos referentes al arbol que se busca
      * @async
-     * @exports getSingleInventarioArbol
+     * @exports inventarioArbolGetSingle
      * @param {*} req No recibe ningun parametro
      * @param {JSON} res Responde con NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen.
      */
 
-    async getSingleInventarioArbol(req, res) {
+    async inventarioArbolGetSingle(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -539,12 +539,12 @@ class arbolesController {
     /**
      * Actualiza todos los datos que se manda en un body al arbol.
      * @async
-     * @exports updateInventarioArbol
+     * @exports inventarioArbolEdit
      * @param {JSON} req Todo lo que recibe en un JSOn de NID, id_taxonomia, Plantado, diametro, altura, valoracion, latitud, longitud, id_jardin e imagen, es lo que actualiza.
      * @param {string} res Responde un mensaje de error o valdio dependiendo el caso.
      */
 
-    async updateInventarioArbol(req, res) {
+    async inventarioArbolEdit(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -601,12 +601,12 @@ class arbolesController {
     /**
      * Se plantea borrar un arbol del inventario pero se pidio que no existiera tal opcion.
      * @async
-     * @exports deleteInventarioArbol
+     * @exports inventarioArbolDelete
      * @param {*} req Recibe un folio al cual borrar.
      * @param {string} res Responde con un mensaje que no se puede eliminar un arbol.
      */
 
-    async deleteInventarioArbol(req, res) {
+    async inventarioArbolDelete(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -625,12 +625,12 @@ class arbolesController {
     /**
      * Obtiene la informacion de todos los jardines.
      * @async
-     * @exports getAllJardinesArboles
+     * @exports jardinesArbolesGetAll
      * @param {*} req No recibe ningun parametro.
      * @param {JSON} res Responde con id_jardin y nombre.
      */
 
-    async getAllJardinesArboles(req, res) {
+    async jardinesArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -647,7 +647,7 @@ class arbolesController {
         /**
      * Se utilzia esta funcion como su nombre lo menciona que es para crear un nuevo Jardin.
      * @async
-     * @exports createJardin
+     * @exports jardinCreate
      * @param {JSON} req Recibe en un body todos los datos de jardin necesarios para crearlo 
      * {
      * "id_jardin" : ### (int 11), no es necesario mandarlo ya que se obtiene automaticamente
@@ -656,7 +656,7 @@ class arbolesController {
      * @param {String} res Responde con un mensaje si salio correcto o cual es el error.
      */
 
-         async createJardin(req, res) {
+         async jardinCreate(req, res) {
             let query = {} // Search by name or uid
             let options = {} // Page or limit
             let projection = ""; // Which fields are wanted
@@ -693,12 +693,12 @@ class arbolesController {
             /**
      * Obtiene la informacion de los un jardin que se obtiene a traves del folio que se manda en el URL.
      * @async
-     * @exports getSingleJardin
+     * @exports jardinGetSingle
      * @param {*} req No recibe ningun parametro
      * @param {JSON} res Responde con id_jardin y nombre si lo encuentra.
      */
 
-    async getSingleJardin(req, res) {
+    async jardinGetSingle(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -724,12 +724,12 @@ class arbolesController {
     /**
      * Actualiza todos los datos que se manda en un body a jardin.
      * @async
-     * @exports updateJardin
+     * @exports jardinEdit
      * @param {JSON} req Recibe en un body tipo JSON los datos a actualizar
      * @param {string} res Responde con mensaje si fue satisfactorio o hubo un error.
      */
 
-         async updateJardin(req, res) {
+         async jardinEdit(req, res) {
             let query = {} // Search by name or uid
             let options = {} // Page or limit
             let projection = ""; // Which fields are wanted
@@ -746,12 +746,12 @@ class arbolesController {
             /**
      * Funcion con el fin de eliminar jardines, no se implementara a peticion del profesor.
      * @async
-     * @exports deleteJardin
+     * @exports jardinDelete
      * @param {*} req No recibe ningun parametro.
      * @param {string} res Responde con un mensaje de que no se implementara.
      */
 
-    async deleteJardin(req, res) {
+    async jardinDelete(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -769,12 +769,12 @@ class arbolesController {
     /**
      * Obtiene todos los nodos de los arboles.
      * @async
-     * @exports getAllNodosArboles
+     * @exports nodosArbolesGetAll
      * @param {*} req No recibe ningun parametro.
      * @param {JSON} res Responde con id_nodo y NID.
      */
 
-    async getAllNodosArboles(req, res) {
+    async nodosArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -791,12 +791,12 @@ class arbolesController {
     /**
      * Obtiene todas las rutas de los arboles
      * @async
-     * @exports getAllRutaArboles
+     * @exports rutaArbolesGetAll
      * @param {*} req - No recibe ningun parametro
      * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
      */
 
-    async getAllRutaArboles(req, res) {
+    async rutaArbolesGetAll(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
