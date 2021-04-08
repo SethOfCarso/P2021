@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: jardinDelete</title>
+    <title>JSDoc: Module: patchSingleUserByID</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: jardinDelete</h1>
+    <h1 class="page-title">Module: patchSingleUserByID</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Funcion con el fin de eliminar jardines, no se implementara a peticion del profesor.</div>
+            <div class="description">Editar algun usuario</div>
         
 
         
@@ -85,7 +85,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">JSON</span>
 
 
             
@@ -95,7 +95,7 @@
 
             
 
-            <td class="description last">No recibe ningun parametro.</td>
+            <td class="description last">Recibe en el URL el ID a editar, con un body sea de la forma {"name" : "Nombre del usuario a editar",                                                                                  "last_name : Apellidos del usuario a editar",                                                                                  "rol : ID del rol a editar",                                                                                  "email : Correo del usuario a editar",                                                                                  "password : Contraseña del usuario a editar"}.</td>
         </tr>
 
     
@@ -118,7 +118,7 @@
 
             
 
-            <td class="description last">Responde con un mensaje de que no se implementara.</td>
+            <td class="description last">Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.</td>
         </tr>
 
     
@@ -159,7 +159,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="arboles.controllers.js.html">arboles.controllers.js</a>, <a href="arboles.controllers.js.html#line755">line 755</a>
+        <a href="user.controller.js.html">user.controller.js</a>, <a href="user.controller.js.html#line117">line 117</a>
     </li></ul></dd>
     
 

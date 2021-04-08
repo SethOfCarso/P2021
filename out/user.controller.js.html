@@ -27,6 +27,12 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
+/* eslint-disable no-restricted-globals */
+/**
+ * Módulo del controlador de arboles.
+ * Este archivo contiene todos los endpoints del controlador de arboles.
+ * @author Omar Perez Cano &lt;is718089@iteso.mx>
+ */
 const express = require('express');
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
@@ -84,6 +90,97 @@ class userController {
     }
 
     /**
+     * Añadir un nuevo usuario a la base de datos
+     * @async
+     * @exports addUser
+     * @param {JSON} req - Debe recibir en el Body un JSON de la forma {"name" : "Nombre del usuario a insertar",
+     *                                                                  "last_name : Apellidos del usuario a insertar",
+     *                                                                  "rol : ID del rol a insertar",
+     *                                                                  "email : Correo del usuario a insertar",
+     *                                                                  "password : Contraseña del usuario a insertar"}.
+     * @param {string} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     */
+     async addUser(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const body = req.body;
+        let name = body.name;
+        let last_name = body.last_name;
+        let rol = body.rol;
+        let email = body.email;
+        let password = body.password;
+
+        let stringQuery = "INSERT INTO `arboles_usuarios` (`id_taxonomia`, `Name`, `LastName`, `Password`, `Rol`, `Email`) VALUES (NULL, '" + name + "', '" + last_name + "', '" + rol + "', '" + email + "', '" + password + "'); "
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(501)
+                    res.json({
+                        msg: "Hubo un error en su petición, favor de verificar los campos ingresados"
+                    })
+                }
+                if (results.affectedRows == 1) {
+                    res.status(200)
+                    res.json({
+                        msg: "Se agrego el usuario correctamente"
+                    })
+                }
+            }
+        );
+    }
+
+    /**
+     * Editar algun usuario
+     * @async
+     * @exports patchSingleUserByID
+     * @param {JSON} req - Recibe en el URL el ID a editar, con un body sea de la forma {"name" : "Nombre del usuario a editar",
+     *                                                                                   "last_name : Apellidos del usuario a editar",
+     *                                                                                   "rol : ID del rol a editar",
+     *                                                                                   "email : Correo del usuario a editar",
+     *                                                                                   "password : Contraseña del usuario a editar"}.
+     * @param {string} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
+     */
+     async patchSingleUserByID(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const id = req.params.id;
+        const body = req.body;
+        let name = body.name;
+        let last_name = body.last_name;
+        let rol = body.rol;
+        let email = body.email;
+        let password = body.password;
+        if (folioID !== undefined) {
+            let stringQuery = "UPDATE `arboles_usuarios` SET `Name` = ' " + name + " ', `LastName` = ' " + last_name + " ', `Password` = ' " + password + " ', `Rol` = ' " + rol + " ', `Email` = ' " + email + " ' WHERE `arboles_usuarios`.`idUser` = " + "\'" + id + "\'"
+            connection.query(
+                stringQuery,
+                function (err, results, fields) {
+                    if (err) {
+                        res.status(501)
+                        res.json({
+                            msg: "Hubo un error en su petición, favor de verificar el nombre que agrego."
+                        })
+                    }
+                    if (results.affectedRows == 1) {
+                        res.status(200)
+                        res.json({
+                            msg: "Se agrego edito el nombre correctamente en la lista actual."
+                        })
+                    }
+                }
+            );
+        } else {
+            res.status(201).json({
+                msg: "No se envio un id valido a nuestra Base de datos."
+            })
+        }
+
+    }
+
+    /**
      * Lista de todos los usuarios para que los administradores puedan tener control de ellos.
      * @param {*} req No recibe nada.
      * @param {*} res Responde con idUser, Name, LastName, Rol, Email.
@@ -101,19 +198,41 @@ class userController {
         );
     }
 
-
     /**
      * Obtener los datos de un usuario en particular.
      * @param {*} req Necesita el id del usuario para obtenerlo.
      * @param {*} res Responde con idUser, Name, LastName, Rol, Email.
      */
-    async singleUserByID(req, res) {
+     async singleUserByID(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
         const idUser = req.params.id;
         connection.query(
             "SELECT `idUser`, `Name` ,`LastName`,`Rol`,`Email`  FROM `arboles_usuarios` WHERE `idUser` = " + "\'" + idUser + "\'",
+            function (err, results, fields) {
+                res.status(200)
+                res.json(results)
+            }
+        );
+
+    }
+
+
+    /**
+     * Eliminar un usuario
+     * @async
+     * @exports deleteSingleUserByID
+     * @param {JSON} req - Recibe en el URL el ID a borrar
+     * @param {string} res - Si recibe un ID invalido envia un error en msg, envia un error si no puede agregar el texto a la base de datos.
+     */
+    async deleteSingleUserByID(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const id = req.params.id;
+        connection.query(
+            "DELETE FROM `arboles_usuarios` WHERE `arboles_usuarios`.`idUser` = " + "\'" + id + "\'",
             function (err, results, fields) {
                 res.status(200)
                 res.json(results)
@@ -135,13 +254,13 @@ module.exports = userControllerClass;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addUser.html">addUser</a></li><li><a href="module-deleteSingleUserByID.html">deleteSingleUserByID</a></li><li><a href="module-imagenArbolCreate.html">imagenArbolCreate</a></li><li><a href="module-imagenArbolDelete.html">imagenArbolDelete</a></li><li><a href="module-imagenArbolEdit.html">imagenArbolEdit</a></li><li><a href="module-imagenArbolGetSingle.html">imagenArbolGetSingle</a></li><li><a href="module-imagenesArbolesGetAll.html">imagenesArbolesGetAll</a></li><li><a href="module-inspeccionArbolesGetAll.html">inspeccionArbolesGetAll</a></li><li><a href="module-inventario3Random.html">inventario3Random</a></li><li><a href="module-inventarioArbolDelete.html">inventarioArbolDelete</a></li><li><a href="module-inventarioArbolEdit.html">inventarioArbolEdit</a></li><li><a href="module-inventarioArbolesGetAll.html">inventarioArbolesGetAll</a></li><li><a href="module-inventarioArbolGetSingle.html">inventarioArbolGetSingle</a></li><li><a href="module-inventarioCreate.html">inventarioCreate</a></li><li><a href="module-inventarioJardin.html">inventarioJardin</a></li><li><a href="module-InventarioLastCreated.html">InventarioLastCreated</a></li><li><a href="module-inventarioTaxonomia.html">inventarioTaxonomia</a></li><li><a href="module-jardinCreate.html">jardinCreate</a></li><li><a href="module-jardinDelete.html">jardinDelete</a></li><li><a href="module-jardinEdit.html">jardinEdit</a></li><li><a href="module-jardinesArbolesGetAll.html">jardinesArbolesGetAll</a></li><li><a href="module-jardinGetSingle.html">jardinGetSingle</a></li><li><a href="module-nodosArbolesGetAll.html">nodosArbolesGetAll</a></li><li><a href="module-patchSingleUserByID.html">patchSingleUserByID</a></li><li><a href="module-rutaArbolesGetAll.html">rutaArbolesGetAll</a></li><li><a href="module-taxonomiaArbolesGetAll.html">taxonomiaArbolesGetAll</a></li><li><a href="module-taxonomiaCreate.html">taxonomiaCreate</a></li><li><a href="module-taxonomiaDelete.html">taxonomiaDelete</a></li><li><a href="module-taxonomiaEdit.html">taxonomiaEdit</a></li><li><a href="module-taxonomiaGetSingle.html">taxonomiaGetSingle</a></li></ul><h3>Global</h3><ul><li><a href="global.html#express">express</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Mar 24 2021 13:01:05 GMT-0600 (GMT-06:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Apr 08 2021 15:29:47 GMT-0500 (hora de verano central)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: jardinDelete</title>
+    <title>JSDoc: Module: addUser</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: jardinDelete</h1>
+    <h1 class="page-title">Module: addUser</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Funcion con el fin de eliminar jardines, no se implementara a peticion del profesor.</div>
+            <div class="description">Añadir un nuevo usuario a la base de datos</div>
         
 
         
@@ -85,7 +85,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">JSON</span>
 
 
             
@@ -95,7 +95,7 @@
 
             
 
-            <td class="description last">No recibe ningun parametro.</td>
+            <td class="description last">Debe recibir en el Body un JSON de la forma {"name" : "Nombre del usuario a insertar",                                                                 "last_name : Apellidos del usuario a insertar",                                                                 "rol : ID del rol a insertar",                                                                 "email : Correo del usuario a insertar",                                                                 "password : Contraseña del usuario a insertar"}.</td>
         </tr>
 
     
@@ -118,7 +118,7 @@
 
             
 
-            <td class="description last">Responde con un mensaje de que no se implementara.</td>
+            <td class="description last">Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.</td>
         </tr>
 
     
@@ -159,7 +159,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="arboles.controllers.js.html">arboles.controllers.js</a>, <a href="arboles.controllers.js.html#line755">line 755</a>
+        <a href="user.controller.js.html">user.controller.js</a>, <a href="user.controller.js.html#line75">line 75</a>
     </li></ul></dd>
     
 

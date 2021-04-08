@@ -83,7 +83,7 @@ class userController {
         let email = body.email;
         let password = body.password;
 
-        let stringQuery = "INSERT INTO `arboles_usuarios` (`id_taxonomia`, `Name`, `LastName`, `Password`, `Rol`, `Email`) VALUES (NULL, '" + name + "', '" + last_name + "', '" + rol + "', '" + email + "', '" + password + "'); ",
+        let stringQuery = "INSERT INTO `arboles_usuarios` (`id_taxonomia`, `Name`, `LastName`, `Password`, `Rol`, `Email`) VALUES (NULL, '" + name + "', '" + last_name + "', '" + rol + "', '" + email + "', '" + password + "'); "
         connection.query(
             stringQuery,
             function (err, results, fields) {
@@ -126,7 +126,7 @@ class userController {
         let email = body.email;
         let password = body.password;
         if (folioID !== undefined) {
-            let stringQuery = "UPDATE `arboles_usuarios` SET `Name` = ' " + name + " ', `LastName` = ' " + last_name + " ', `Password` = ' " + password + " ', `Rol` = ' " + rol + " ', `Email` = ' " + email + " ' WHERE `arboles_usuarios`.`idUser` = " + "\'" + id + "\'",
+            let stringQuery = "UPDATE `arboles_usuarios` SET `Name` = ' " + name + " ', `LastName` = ' " + last_name + " ', `Password` = ' " + password + " ', `Rol` = ' " + rol + " ', `Email` = ' " + email + " ' WHERE `arboles_usuarios`.`idUser` = " + "\'" + id + "\'"
             connection.query(
                 stringQuery,
                 function (err, results, fields) {
