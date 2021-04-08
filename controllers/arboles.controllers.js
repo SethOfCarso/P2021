@@ -5,7 +5,6 @@
  * Este archivo contiene todos los endpoints del controlador de arboles.
  * @author Erick Cardona Soto Maynez <cardona.erick@hotmail.com>
  */
-
 const express = require('express');
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
