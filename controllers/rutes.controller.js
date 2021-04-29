@@ -1,8 +1,8 @@
 'use strict';
 /* eslint-disable no-restricted-globals */
 /**
- * Módulo del controlador de arboles.
- * Este archivo contiene todos los endpoints del controlador de arboles.
+ * M贸dulo del controlador de rutas.
+ * Este archivo contiene todas las funciones para los endpoints marcados en rutas.
  * @author Erick Cardona Soto Maynez <cardona.erick@hotmail.com>
  */
 const express = require('express');
