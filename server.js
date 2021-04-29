@@ -25,6 +25,7 @@ connection.connect();
 
 const arbolesRotuer = require('./routes/arboles.routes');
 const userRouter = require('./routes/user.routes');
+const rutesRouter = require('./routes/rutes.routes');
 
 
 // ====================================
@@ -36,6 +37,7 @@ app.use(express.json());
 
 app.use('/P2021API/api/user', userRouter);
 app.use('/P2021API/api/arboles', arbolesRotuer);
+app.use ('/P2021API/api/rutas', rutesRouter);
 
 
 // ====================================

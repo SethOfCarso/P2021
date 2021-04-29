@@ -18,6 +18,9 @@ router.route('/tiposArboles/:folio')
     .put(arbolesController.taxonomiaEdit)
     .delete(arbolesController.taxonomiaDelete)
 
+    router.route('/tiposArboles/jadines/completo')
+    .get(arbolesController.taxonomiaAndArboles)
+
 router.route('/imagenes')
     .get(arbolesController.imagenesArbolesGetAll)
     .post(arbolesController.imagenArbolCreate)
@@ -66,6 +69,7 @@ router.route('/InventarioFilter/jardin/:folio')
 router.route('/InventarioFilter/taxonomia/:folio')
     .get(arbolesController.inventarioTaxonomia)
 
-
+router.route('/arbolesyjardines')
+    .get(arbolesController.arbolesyJardinesGet)
 
 module.exports = router;

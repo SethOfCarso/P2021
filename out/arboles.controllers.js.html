@@ -221,6 +221,39 @@ class arbolesController {
 
     }
 
+    /**
+     * Obtener un registro de la Taxonomia de arboles.
+     * @async
+     * @exports taxonomiaAndArboles
+     * @param {*} req - No recibe nada en los parametros.
+     * @param {JSON} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     */
+
+    async taxonomiaAndArboles(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        let stringQuery = "SELECT NID, `rssy_arboles_inventario`.`id_taxonomia` , `nombre`, `id_jardin` FROM `rssy_arboles_inventario`, `rssy_arboles_taxonomias` WHERE `rssy_arboles_inventario`.`id_taxonomia` = `rssy_arboles_taxonomias`.`id_taxonomia`"
+        // let stringQuery = "SELECT * FROM `rssy_arboles_inventario` "
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(501)
+                    res.json({
+                        msg: "Hubo un error en su petición, intente en unos momentos mas"
+                    })
+                }
+                if (results != undefined) {
+                        res.status(200)
+                        res.send(results);                    
+                }
+
+
+            }
+        );
+    }
+
 
 
 
@@ -901,14 +934,14 @@ class arbolesController {
         );
     }
 
-     /**
+    /**
      * Obtiene los arboles del inventario segun el jardin que es solicitado.
      * @async
      * @exports inventarioJardin
      * @param {*} req - En el folio/URL viene el id del jardin solicitado
      * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
      */
-      async inventarioJardin(req, res) {
+    async inventarioJardin(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -924,7 +957,7 @@ class arbolesController {
         );
     }
 
-     /**
+    /**
      * Obtiene todas las rutas de los arboles
      * @async
      * @exports inventarioTaxonomia
@@ -932,13 +965,37 @@ class arbolesController {
      * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
      */
 
-      async inventarioTaxonomia(req, res) {
+    async inventarioTaxonomia(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
         const folioID = req.params.folio;
         // let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
         let stringQuery = "SELECT * FROM `rssy_arboles_inventario` where `id_taxonomia` = " + folioID
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                res.status(200)
+                res.json(results)
+            }
+        );
+    }
+
+    /**
+     * Obtiene todas las rutas de los arboles
+     * @async
+     * @exports arbolesyJardinesGet
+     * @param {*} req - No recibe ningun parametro
+     * @param {JSON} res - Devuelve a petición , NID, id_taxonimia , id_jardin y nombre del jardin donde se encuentra en 1 solo query.
+     */
+
+    async arbolesyJardinesGet(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        // let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
+        let stringQuery = "SELECT NID, id_taxonomia, `rssy_arboles_jardines`.id_jardin, nombre  FROM `rssy_arboles_inventario` , `rssy_arboles_jardines`  WHERE `rssy_arboles_inventario`.id_jardin  = `rssy_arboles_jardines`.`id_jardin`"
         connection.query(
             stringQuery,
             function (err, results, fields) {
@@ -961,13 +1018,13 @@ module.exports = arbolesControllerClass;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addUser.html">addUser</a></li><li><a href="module-deleteSingleUserByID.html">deleteSingleUserByID</a></li><li><a href="module-imagenArbolCreate.html">imagenArbolCreate</a></li><li><a href="module-imagenArbolDelete.html">imagenArbolDelete</a></li><li><a href="module-imagenArbolEdit.html">imagenArbolEdit</a></li><li><a href="module-imagenArbolGetSingle.html">imagenArbolGetSingle</a></li><li><a href="module-imagenesArbolesGetAll.html">imagenesArbolesGetAll</a></li><li><a href="module-inspeccionArbolesGetAll.html">inspeccionArbolesGetAll</a></li><li><a href="module-inventario3Random.html">inventario3Random</a></li><li><a href="module-inventarioArbolDelete.html">inventarioArbolDelete</a></li><li><a href="module-inventarioArbolEdit.html">inventarioArbolEdit</a></li><li><a href="module-inventarioArbolesGetAll.html">inventarioArbolesGetAll</a></li><li><a href="module-inventarioArbolGetSingle.html">inventarioArbolGetSingle</a></li><li><a href="module-inventarioCreate.html">inventarioCreate</a></li><li><a href="module-inventarioJardin.html">inventarioJardin</a></li><li><a href="module-InventarioLastCreated.html">InventarioLastCreated</a></li><li><a href="module-inventarioTaxonomia.html">inventarioTaxonomia</a></li><li><a href="module-jardinCreate.html">jardinCreate</a></li><li><a href="module-jardinDelete.html">jardinDelete</a></li><li><a href="module-jardinEdit.html">jardinEdit</a></li><li><a href="module-jardinesArbolesGetAll.html">jardinesArbolesGetAll</a></li><li><a href="module-jardinGetSingle.html">jardinGetSingle</a></li><li><a href="module-nodosArbolesGetAll.html">nodosArbolesGetAll</a></li><li><a href="module-patchSingleUserByID.html">patchSingleUserByID</a></li><li><a href="module-rutaArbolesGetAll.html">rutaArbolesGetAll</a></li><li><a href="module-taxonomiaArbolesGetAll.html">taxonomiaArbolesGetAll</a></li><li><a href="module-taxonomiaCreate.html">taxonomiaCreate</a></li><li><a href="module-taxonomiaDelete.html">taxonomiaDelete</a></li><li><a href="module-taxonomiaEdit.html">taxonomiaEdit</a></li><li><a href="module-taxonomiaGetSingle.html">taxonomiaGetSingle</a></li></ul><h3>Global</h3><ul><li><a href="global.html#express">express</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addUser.html">addUser</a></li><li><a href="module-arbolesyJardinesGet.html">arbolesyJardinesGet</a></li><li><a href="module-deleteSingleUserByID.html">deleteSingleUserByID</a></li><li><a href="module-imagenArbolCreate.html">imagenArbolCreate</a></li><li><a href="module-imagenArbolDelete.html">imagenArbolDelete</a></li><li><a href="module-imagenArbolEdit.html">imagenArbolEdit</a></li><li><a href="module-imagenArbolGetSingle.html">imagenArbolGetSingle</a></li><li><a href="module-imagenesArbolesGetAll.html">imagenesArbolesGetAll</a></li><li><a href="module-inspeccionArbolesGetAll.html">inspeccionArbolesGetAll</a></li><li><a href="module-inventario3Random.html">inventario3Random</a></li><li><a href="module-inventarioArbolDelete.html">inventarioArbolDelete</a></li><li><a href="module-inventarioArbolEdit.html">inventarioArbolEdit</a></li><li><a href="module-inventarioArbolesGetAll.html">inventarioArbolesGetAll</a></li><li><a href="module-inventarioArbolGetSingle.html">inventarioArbolGetSingle</a></li><li><a href="module-inventarioCreate.html">inventarioCreate</a></li><li><a href="module-inventarioJardin.html">inventarioJardin</a></li><li><a href="module-InventarioLastCreated.html">InventarioLastCreated</a></li><li><a href="module-inventarioTaxonomia.html">inventarioTaxonomia</a></li><li><a href="module-jardinCreate.html">jardinCreate</a></li><li><a href="module-jardinDelete.html">jardinDelete</a></li><li><a href="module-jardinEdit.html">jardinEdit</a></li><li><a href="module-jardinesArbolesGetAll.html">jardinesArbolesGetAll</a></li><li><a href="module-jardinGetSingle.html">jardinGetSingle</a></li><li><a href="module-nodosArbolesGetAll.html">nodosArbolesGetAll</a></li><li><a href="module-patchSingleUserByID.html">patchSingleUserByID</a></li><li><a href="module-rutaArbolesGetAll.html">rutaArbolesGetAll</a></li><li><a href="module-taxonomiaAndArboles.html">taxonomiaAndArboles</a></li><li><a href="module-taxonomiaArbolesGetAll.html">taxonomiaArbolesGetAll</a></li><li><a href="module-taxonomiaCreate.html">taxonomiaCreate</a></li><li><a href="module-taxonomiaDelete.html">taxonomiaDelete</a></li><li><a href="module-taxonomiaEdit.html">taxonomiaEdit</a></li><li><a href="module-taxonomiaGetSingle.html">taxonomiaGetSingle</a></li></ul><h3>Global</h3><ul><li><a href="global.html#express">express</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Apr 08 2021 15:29:47 GMT-0500 (hora de verano central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Apr 15 2021 16:11:41 GMT-0500 (hora de verano central)
 </footer>
 
 <script> prettyPrint(); </script>

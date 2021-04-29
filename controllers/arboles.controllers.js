@@ -193,6 +193,39 @@ class arbolesController {
 
     }
 
+    /**
+     * Obtener un registro de la Taxonomia de arboles.
+     * @async
+     * @exports taxonomiaAndArboles
+     * @param {*} req - No recibe nada en los parametros.
+     * @param {JSON} res - Si se agrego, regresa un JSON con mensaje de correcto, si hubo un error se regresa un error en la petición.
+     */
+
+    async taxonomiaAndArboles(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        let stringQuery = "SELECT NID, `rssy_arboles_inventario`.`id_taxonomia` , `nombre`, `id_jardin` FROM `rssy_arboles_inventario`, `rssy_arboles_taxonomias` WHERE `rssy_arboles_inventario`.`id_taxonomia` = `rssy_arboles_taxonomias`.`id_taxonomia`"
+        // let stringQuery = "SELECT * FROM `rssy_arboles_inventario` "
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                if (err) {
+                    res.status(501)
+                    res.json({
+                        msg: "Hubo un error en su petición, intente en unos momentos mas"
+                    })
+                }
+                if (results != undefined) {
+                        res.status(200)
+                        res.send(results);                    
+                }
+
+
+            }
+        );
+    }
+
 
 
 
@@ -873,14 +906,14 @@ class arbolesController {
         );
     }
 
-     /**
+    /**
      * Obtiene los arboles del inventario segun el jardin que es solicitado.
      * @async
      * @exports inventarioJardin
      * @param {*} req - En el folio/URL viene el id del jardin solicitado
      * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
      */
-      async inventarioJardin(req, res) {
+    async inventarioJardin(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
@@ -896,7 +929,7 @@ class arbolesController {
         );
     }
 
-     /**
+    /**
      * Obtiene todas las rutas de los arboles
      * @async
      * @exports inventarioTaxonomia
@@ -904,13 +937,37 @@ class arbolesController {
      * @param {JSON} res - Devuelve todas las rutas de los arboels en la BDD
      */
 
-      async inventarioTaxonomia(req, res) {
+    async inventarioTaxonomia(req, res) {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
         const folioID = req.params.folio;
         // let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
         let stringQuery = "SELECT * FROM `rssy_arboles_inventario` where `id_taxonomia` = " + folioID
+        connection.query(
+            stringQuery,
+            function (err, results, fields) {
+                res.status(200)
+                res.json(results)
+            }
+        );
+    }
+
+    /**
+     * Obtiene todas las rutas de los arboles
+     * @async
+     * @exports arbolesyJardinesGet
+     * @param {*} req - No recibe ningun parametro
+     * @param {JSON} res - Devuelve a petición , NID, id_taxonimia , id_jardin y nombre del jardin donde se encuentra en 1 solo query.
+     */
+
+    async arbolesyJardinesGet(req, res) {
+        let query = {} // Search by name or uid
+        let options = {} // Page or limit
+        let projection = ""; // Which fields are wanted
+        const folioID = req.params.folio;
+        // let stringQuery = "SELECT * FROM `rssy_arboles_jardines` WHERE `id_jardin` = " + folioID
+        let stringQuery = "SELECT NID, id_taxonomia, `rssy_arboles_jardines`.id_jardin, nombre  FROM `rssy_arboles_inventario` , `rssy_arboles_jardines`  WHERE `rssy_arboles_inventario`.id_jardin  = `rssy_arboles_jardines`.`id_jardin`"
         connection.query(
             stringQuery,
             function (err, results, fields) {
