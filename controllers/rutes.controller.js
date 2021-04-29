@@ -22,13 +22,16 @@ class rutesController {
         let query = {} // Search by name or uid
         let options = {} // Page or limit
         let projection = ""; // Which fields are wanted
-        const folioID = req.params.folio;
-        let stringQuery = "SELECT NID, id_taxonomia, `rssy_arboles_jardines`.id_jardin, nombre  FROM `rssy_arboles_inventario` , `rssy_arboles_jardines`  WHERE `rssy_arboles_inventario`.id_jardin  = `rssy_arboles_jardines`.`id_jardin`"
+        const body = req.body;
+        let start = body.start;
+        let finish = body.finish;
+        let stringQuery = "SELECT * FROM `rssy_arboles_ruta` "
         connection.query(
             stringQuery,
             function (err, results, fields) {
                 res.status(200)
-                res.send("Ruta basica para rutas")
+                res.send(results)
+                // res.send("Ruta basica para rutas")
             }
         );
     }
