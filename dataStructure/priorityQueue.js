@@ -1,25 +1,26 @@
-import MinHeap from './MinHeap';
-import Comparator from '../comparator/Comparator';
+import MinHeap from './MinHeap.js';
+import Comparator from '../comparator/Comparator.js';
 
-// It is the same as min heap except that when comparing two elements
-// we take into account its priority instead of the element's value.
+/**
+ * Es parecido a minimun heap, excpeto que toma la prioridad del elemento
+ * en vez de su valor
+ */
+
 export default class PriorityQueue extends MinHeap {
   constructor() {
-    // Call MinHip constructor first.
     super();
 
-    // Setup priorities map.
+    // Mapa de prioridades
     this.priorities = new Map();
 
-    // Use custom comparator for heap elements that will take element priority
-    // instead of element value into account.
+    // Se utiliza el comparador para comparar prioridades en vez del elemento.
     this.compare = new Comparator(this.comparePriority.bind(this));
   }
 
   /**
-   * Add item to the priority queue.
-   * @param {*} item - item we're going to add to the queue.
-   * @param {number} [priority] - items priority.
+   * Agregamos el item a la cola
+   * @param {*} item - el item a agregar
+   * @param {number} [priority] - Su prioridad, por default es 0
    * @return {PriorityQueue}
    */
   add(item, priority = 0) {
@@ -29,9 +30,9 @@ export default class PriorityQueue extends MinHeap {
   }
 
   /**
-   * Remove item from priority queue.
-   * @param {*} item - item we're going to remove.
-   * @param {Comparator} [customFindingComparator] - custom function for finding the item to remove
+   * Remueve el item
+   * @param {*} item - 
+   * @param {Comparator} [customFindingComparator] - funcion comparadora
    * @return {PriorityQueue}
    */
   remove(item, customFindingComparator) {
@@ -41,9 +42,9 @@ export default class PriorityQueue extends MinHeap {
   }
 
   /**
-   * Change priority of the item in a queue.
-   * @param {*} item - item we're going to re-prioritize.
-   * @param {number} priority - new item's priority.
+   * Cambia la prioridad del item
+   * @param {*} item - item que vamos a cambiar su prioridad
+   * @param {number} priority - La nueva prioridad
    * @return {PriorityQueue}
    */
   changePriority(item, priority) {
@@ -53,7 +54,7 @@ export default class PriorityQueue extends MinHeap {
   }
 
   /**
-   * Find item by ite value.
+   * Busca un arreglo de items que comple
    * @param {*} item
    * @return {Number[]}
    */
@@ -62,7 +63,7 @@ export default class PriorityQueue extends MinHeap {
   }
 
   /**
-   * Check if item already exists in a queue.
+   * Checa si el item existe actualmente
    * @param {*} item
    * @return {boolean}
    */
@@ -71,7 +72,7 @@ export default class PriorityQueue extends MinHeap {
   }
 
   /**
-   * Compares priorities of two items.
+   * Comapra la prioridad e los items
    * @param {*} a
    * @param {*} b
    * @return {number}
@@ -84,7 +85,7 @@ export default class PriorityQueue extends MinHeap {
   }
 
   /**
-   * Compares values of two items.
+   * Comapra los valores de los items.
    * @param {*} a
    * @param {*} b
    * @return {number}

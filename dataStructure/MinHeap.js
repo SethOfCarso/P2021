@@ -1,10 +1,10 @@
-import Heap from './Heap';
+import Heap from './Heap.js';
 
 export default class MinHeap extends Heap {
   /**
-   * Checks if pair of heap elements is in correct order.
-   * For MinHeap the first element must be always smaller or equal.
-   * For MaxHeap the first element must be always bigger or equal.
+   * 
+   * Checa si el par es correcto, con nosotros en minheap
+   * es bueno recordar que el item root siempre es el menor.
    *
    * @param {*} firstElement
    * @param {*} secondElement
