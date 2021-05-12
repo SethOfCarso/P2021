@@ -1,5 +1,10 @@
 import LinkedList from './LinkedList.js';
 
+/**
+ * Nos basamos en el trabajo de https://github.com/trekhleb/javascript-algorithms 
+ * para la creacion del algoritmo dijktra.
+ */
+
 export default class GraphVertex {
   /**
    * @param {*} value

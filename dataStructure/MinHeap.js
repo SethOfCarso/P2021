@@ -1,5 +1,10 @@
 import Heap from './Heap.js';
 
+/**
+ * Nos basamos en el trabajo de https://github.com/trekhleb/javascript-algorithms 
+ * para la creacion del algoritmo dijktra.
+ */
+
 export default class MinHeap extends Heap {
   /**
    * 

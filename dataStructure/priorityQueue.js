@@ -2,6 +2,11 @@ import MinHeap from './MinHeap.js';
 import Comparator from '../comparator/Comparator.js';
 
 /**
+ * Nos basamos en el trabajo de https://github.com/trekhleb/javascript-algorithms 
+ * para la creacion del algoritmo dijktra.
+ */
+
+/**
  * Es parecido a minimun heap, excpeto que toma la prioridad del elemento
  * en vez de su valor
  */

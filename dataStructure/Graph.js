@@ -1,5 +1,11 @@
+/**
+ * Nos basamos en el trabajo de https://github.com/trekhleb/javascript-algorithms 
+ * para la creacion del algoritmo dijktra.
+ */
+
 export default class Graph {
   /**
+   * Constuctor base
    * @param {boolean} isDirected
    */
   constructor(isDirected = false) {
@@ -9,6 +15,7 @@ export default class Graph {
   }
 
   /**
+   * Añadir vertice
    * @param {GraphVertex} newVertex
    * @returns {Graph}
    */
@@ -19,6 +26,7 @@ export default class Graph {
   }
 
   /**
+   * Obtener vertice por el lugar dado.
    * @param {string} vertexKey
    * @returns GraphVertex
    */
@@ -27,6 +35,7 @@ export default class Graph {
   }
 
   /**
+   * Obtener vecinos
    * @param {GraphVertex} vertex
    * @returns {GraphVertex[]}
    */
@@ -35,6 +44,7 @@ export default class Graph {
   }
 
   /**
+   * Obtener todos los vercies
    * @return {GraphVertex[]}
    */
   getAllVertices() {
@@ -42,6 +52,7 @@ export default class Graph {
   }
 
   /**
+   * Obtener todas las esquinas
    * @return {GraphEdge[]}
    */
   getAllEdges() {
@@ -53,23 +64,25 @@ export default class Graph {
    * @returns {Graph}
    */
   addEdge(edge) {
-    // Try to find and end start vertices.
+    // Intentamos encontrar un inicio y un fin de los vertices
     let startVertex = this.getVertexByKey(edge.startVertex.getKey());
     let endVertex = this.getVertexByKey(edge.endVertex.getKey());
 
-    // Insert start vertex if it wasn't inserted.
+    
+    // Insertamos el inicio si es que no existe
     if (!startVertex) {
       this.addVertex(edge.startVertex);
       startVertex = this.getVertexByKey(edge.startVertex.getKey());
     }
 
-    // Insert end vertex if it wasn't inserted.
+    // Insertamos un final si no ha sido insertado.
     if (!endVertex) {
       this.addVertex(edge.endVertex);
       endVertex = this.getVertexByKey(edge.endVertex.getKey());
     }
 
-    // Check if edge has been already added.
+    
+    // Checa si la esquina fue añadida anteriormente.
     if (this.edges[edge.getKey()]) {
       throw new Error('Edge has already been added before');
     } else {

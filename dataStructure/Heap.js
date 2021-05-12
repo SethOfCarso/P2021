@@ -1,6 +1,11 @@
 import Comparator from '../comparator/Comparator.js';
 
 /**
+ * Nos basamos en el trabajo de https://github.com/trekhleb/javascript-algorithms 
+ * para la creacion del algoritmo dijktra.
+ */
+
+/**
  * Parent class for Min and Max Heaps.
  */
 export default class Heap {
